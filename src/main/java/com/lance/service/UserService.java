@@ -12,39 +12,59 @@ import java.util.Map;
 @Service("UserService")
 public interface UserService {
     /**
-     * 查询全部数据
-     *
-     * @return List<UserDto>
-     */
-    List<UserEntity> findAll ();
-
-    /**
-     * 根据Id查询数据
+     * 删除
      * @param userId
-     * @return UserDto
+     * @return int
      */
-    UserEntity findById (Integer userId);
+    int deleteByPrimaryKey(Integer userId);
 
     /**
-     * 插入数据
-     *
-     * @param userEntity
+     * 插入
+     * @param record
+     * @return int
      */
-    void insert (UserEntity userEntity);
+    int insert(UserEntity record);
 
     /**
-     * 更新数据
-     *
-     * @param userEntity
+     * 查询所有
+     * @return List<UserEntity>
      */
-    void update (UserEntity userEntity);
+    List<UserEntity> selectAll ();
 
     /**
-     * 删除数据
-     *
+     * 根据用户名查询
+     * @param userName
+     * @return UserEntity
+     */
+    UserEntity selectByName(String userName);
+
+    /**
+     * 选择插入
+     * @param record
+     * @return int
+     */
+    int insertSelective(UserEntity record);
+
+    /**
+     * 主键查询
      * @param userId
+     * @return UserEntity
      */
-    void delete (Integer userId);
+    UserEntity selectByPrimaryKey(Integer userId);
+
+    /**
+     * 选择修改
+     * @param record
+     * @return int
+     */
+    int updateByPrimaryKeySelective(UserEntity record);
+
+    /**
+     * 主键修改
+     * @param record
+     * @return int
+     */
+    int updateByPrimaryKey(UserEntity record);
 
     /**
      * 登录

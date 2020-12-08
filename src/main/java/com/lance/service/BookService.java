@@ -1,34 +1,33 @@
-package com.lance.mapper;
+package com.lance.service;
 
 import com.lance.entity.BookEntity;
-import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Service;
 
 /**
- * @author  lance
- * @date  2020/12/7 21:12
+ * @author lance
  * @version 1.0
+ * @date 2020/12/8 20:41
  */
-@Mapper
-public interface BookMapper {
-
+@Service("BookService")
+public interface BookService {
     /**
      * 删除
      * @param bookId
-     * @return deleteCount
+     * @return int
      */
     int deleteByPrimaryKey(Integer bookId);
 
     /**
      * 插入
      * @param record
-     * @return insert count
+     * @return int
      */
     int insert(BookEntity record);
 
     /**
      * 选择插入
      * @param record
-     * @return insert count
+     * @return int
      */
     int insertSelective(BookEntity record);
 
@@ -42,14 +41,14 @@ public interface BookMapper {
     /**
      * 选择修改
      * @param record
-     * @return update count
+     * @return int
      */
     int updateByPrimaryKeySelective(BookEntity record);
 
     /**
      * 主键修改
      * @param record
-     * @return update count
+     * @return int
      */
     int updateByPrimaryKey(BookEntity record);
 }

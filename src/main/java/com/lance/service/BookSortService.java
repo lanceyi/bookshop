@@ -1,13 +1,15 @@
-package com.lance.mapper;
+package com.lance.service;
 
 import com.lance.entity.BookSort;
+import org.springframework.stereotype.Service;
 
 /**
  * @author lance
  * @version 1.0
- * @date 2020/12/8 21:27
+ * @date 2020/12/8 21:20
  */
-public interface BookSortMapper {
+@Service("BookSortService")
+public interface BookSortService {
     /**
      * 删除
      * @param sortId
@@ -50,3 +52,4 @@ public interface BookSortMapper {
      */
     int updateByPrimaryKey (BookSort record);
 }
+

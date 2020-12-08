@@ -25,10 +25,9 @@ public class MyWebConfig implements WebMvcConfigurer {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/index.html").setViewName("login");
         registry.addViewController("/user/login").setViewName("login");
-        registry.addViewController("/main.html").setViewName("dashboard");
         registry.addViewController("/qmain.html").setViewName("indexdashboard");
+        registry.addViewController("/admin.html").setViewName("dashboard");
         registry.addViewController("login").setViewName("login");
-        registry.addViewController("adminlogin").setViewName("adminlogin");
     }
 
     /**

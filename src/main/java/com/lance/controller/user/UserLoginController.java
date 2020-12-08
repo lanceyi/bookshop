@@ -1,5 +1,6 @@
 package com.lance.controller.user;
 
+import com.lance.entity.UserEntity;
 import com.lance.service.impl.UserServiceImpl;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -21,16 +22,21 @@ import java.util.Map;
 public class UserLoginController {
     @Resource
     private UserServiceImpl userService;
+    public static String ok = "ok";
+    public static String admin = "admin";
 
     @PostMapping(value = "/user/login")
     public String login (@RequestParam("username") String username,
                          @RequestParam("password") String password, Model model, HttpSession session) {
         if (!StringUtils.isEmpty(username)) {
             Map<String, Object> resultMap = userService.login(username,password);
-            if((Boolean)resultMap.get("ok")){
+            if((Boolean)resultMap.get(ok)){
                 session.setAttribute("loginUser",resultMap.get("loginUser"));
                 session.setAttribute("userEntity",resultMap.get("userEntity"));
                 log.info("user login success 添加用户到 session");
+                if ((Boolean)resultMap.get(admin)){
+                return "redirect:/admin.html";
+                }
                 return "redirect:/qmain.html";
             }else {
                 session.invalidate();
@@ -40,8 +46,9 @@ public class UserLoginController {
             }
         return "login";
     }
-    @GetMapping("/user/signOut")
+    @GetMapping("/signOut")
     public String signOut(HttpSession session){
+        session.setAttribute("loginUser",null);
         session.setAttribute("loginUser",null);
         return "login";
     }

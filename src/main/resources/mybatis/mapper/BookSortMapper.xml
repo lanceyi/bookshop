@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lance.mapper.BookSortMapper">
-  <resultMap id="BaseResultMap" type="com.lance.entity.BookSortEntity">
+  <resultMap id="BaseResultMap" type="com.lance.entity.BookSort">
     <!--@mbg.generated-->
     <!--@Table book_sort-->
     <id column="sort_id" jdbcType="INTEGER" property="sortId" />
@@ -23,12 +23,12 @@
     delete from book_sort
     where sort_id = #{sortId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSortEntity" useGeneratedKeys="true">
+  <insert id="insert" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSort" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into book_sort (sort_name)
     values (#{sortName,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSortEntity" useGeneratedKeys="true">
+  <insert id="insertSelective" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSort" useGeneratedKeys="true">
     <!--@mbg.generated-->
     insert into book_sort
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -42,7 +42,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookSortEntity">
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookSort">
     <!--@mbg.generated-->
     update book_sort
     <set>
@@ -52,7 +52,7 @@
     </set>
     where sort_id = #{sortId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lance.entity.BookSortEntity">
+  <update id="updateByPrimaryKey" parameterType="com.lance.entity.BookSort">
     <!--@mbg.generated-->
     update book_sort
     set sort_name = #{sortName,jdbcType=VARCHAR}

@@ -20,31 +20,48 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Resource
     private Map<String, Object> resultMap;
-    public  static String loginUser=null;
+    public static String loginUser=null;
+    public static String admin="admin";
+
 
     @Override
-    public List<UserEntity> findAll () {
+    public int deleteByPrimaryKey (Integer userId) {
+        return userMapper.deleteByPrimaryKey(userId);
+    }
+
+    @Override
+    public int insert (UserEntity record) {
+        return userMapper.insert(record);
+    }
+
+    @Override
+    public List<UserEntity> selectAll () {
         return userMapper.selectAll();
     }
 
     @Override
-    public UserEntity findById (Integer userId) {
+    public UserEntity selectByName (String userName) {
+        return userMapper.selectByName(userName);
+    }
+
+    @Override
+    public int insertSelective (UserEntity record) {
+        return userMapper.insertSelective(record);
+    }
+
+    @Override
+    public UserEntity selectByPrimaryKey (Integer userId) {
         return userMapper.selectByPrimaryKey(userId);
     }
 
     @Override
-    public void insert (UserEntity userEntity) {
-        userMapper.insert(userEntity);
+    public int updateByPrimaryKeySelective (UserEntity record) {
+        return userMapper.updateByPrimaryKeySelective(record);
     }
 
     @Override
-    public void update (UserEntity userEntity) {
-        userMapper.updateByPrimaryKeySelective(userEntity);
-    }
-
-    @Override
-    public void delete (Integer userId) {
-        userMapper.deleteByPrimaryKey(userId);
+    public int updateByPrimaryKey (UserEntity record) {
+        return userMapper.updateByPrimaryKey(record);
     }
 
     @Override
@@ -56,6 +73,11 @@ public class UserServiceImpl implements UserService {
                 resultMap.put("ok", true);
                 resultMap.put("loginUser", loginUser);
                 resultMap.put("userEntity",userEntity);
+                if (admin.equals(userEntity.getUserType())){
+                    resultMap.put("admin",true);
+                }else {
+                    resultMap.put("admin",false);
+                }
             }else{
                 resultMap.put("ok", false);
                 resultMap.put("error", "登录密码错误！");
