@@ -16,6 +16,8 @@ public class UserEntity {
 
     private String userPassword;
 
+    private String userPhone;
+
     private String userType;
 
     private Timestamp createTime;

@@ -1,7 +1,10 @@
 package com.lance.service;
 
+import com.lance.dto.BookDto;
 import com.lance.entity.BookEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lance
@@ -24,12 +27,12 @@ public interface BookService {
      */
     int insert(BookEntity record);
 
+
     /**
-     * 选择插入
-     * @param record
-     * @return int
+     * 查询所有
+     * @return List<UserEntity>
      */
-    int insertSelective(BookEntity record);
+    List<BookDto> selectAll ();
 
     /**
      * 主键查询
@@ -45,10 +48,4 @@ public interface BookService {
      */
     int updateByPrimaryKeySelective(BookEntity record);
 
-    /**
-     * 主键修改
-     * @param record
-     * @return int
-     */
-    int updateByPrimaryKey(BookEntity record);
 }

@@ -1,10 +1,13 @@
 package com.lance.service.impl;
 
+import com.lance.entity.BookSortEntity;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
-import com.lance.entity.BookSort;
 import com.lance.mapper.BookSortMapper;
 import com.lance.service.BookSortService;
+
+import java.util.List;
+
 /**
  * @author  lance
  * @date  2020/12/8 21:27
@@ -22,28 +25,24 @@ public class BookSortServiceImpl implements BookSortService{
     }
 
     @Override
-    public int insert(BookSort record) {
+    public int insert(BookSortEntity record) {
         return bookSortMapper.insert(record);
     }
 
     @Override
-    public int insertSelective(BookSort record) {
-        return bookSortMapper.insertSelective(record);
+    public List<BookSortEntity> selectAll () {
+        return bookSortMapper.selectAll();
     }
 
     @Override
-    public BookSort selectByPrimaryKey(Integer sortId) {
+    public BookSortEntity selectByPrimaryKey(Integer sortId) {
         return bookSortMapper.selectByPrimaryKey(sortId);
     }
 
     @Override
-    public int updateByPrimaryKeySelective(BookSort record) {
+    public int updateByPrimaryKeySelective(BookSortEntity record) {
         return bookSortMapper.updateByPrimaryKeySelective(record);
     }
 
-    @Override
-    public int updateByPrimaryKey(BookSort record) {
-        return bookSortMapper.updateByPrimaryKey(record);
-    }
 
 }

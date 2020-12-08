@@ -1,12 +1,16 @@
 package com.lance.mapper;
 
-import com.lance.entity.BookSort;
+import com.lance.entity.BookSortEntity;
+import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author lance
  * @version 1.0
  * @date 2020/12/8 21:27
  */
+@Mapper
 public interface BookSortMapper {
     /**
      * 删除
@@ -20,33 +24,27 @@ public interface BookSortMapper {
      * @param record
      * @return insert count
      */
-    int insert (BookSort record);
+    int insert (BookSortEntity record);
 
     /**
-     * 选择插入
-     * @param record
-     * @return insert count
+     * 查询所有
+     * @return List<UserEntity>
      */
-    int insertSelective (BookSort record);
+    List<BookSortEntity> selectAll ();
 
     /**
      * 主键查询
      * @param sortId
      * @return BookSort
      */
-    BookSort selectByPrimaryKey (Integer sortId);
+    BookSortEntity selectByPrimaryKey (Integer sortId);
 
     /**
      * 选择修改
      * @param record
      * @return update count
      */
-    int updateByPrimaryKeySelective (BookSort record);
+    int updateByPrimaryKeySelective (BookSortEntity record);
 
-    /**
-     * 主键修改
-     * @param record
-     * @return update count
-     */
-    int updateByPrimaryKey (BookSort record);
+
 }

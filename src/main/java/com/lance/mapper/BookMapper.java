@@ -1,7 +1,10 @@
 package com.lance.mapper;
 
+import com.lance.dto.BookDto;
 import com.lance.entity.BookEntity;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @author  lance
@@ -25,12 +28,12 @@ public interface BookMapper {
      */
     int insert(BookEntity record);
 
+
     /**
-     * 选择插入
-     * @param record
-     * @return insert count
+     * 查询所有
+     * @return List<UserEntity>
      */
-    int insertSelective(BookEntity record);
+    List<BookDto> selectAll ();
 
     /**
      * 主键查询
@@ -46,10 +49,5 @@ public interface BookMapper {
      */
     int updateByPrimaryKeySelective(BookEntity record);
 
-    /**
-     * 主键修改
-     * @param record
-     * @return update count
-     */
-    int updateByPrimaryKey(BookEntity record);
+
 }

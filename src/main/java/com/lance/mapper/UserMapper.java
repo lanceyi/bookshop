@@ -41,13 +41,6 @@ public interface UserMapper {
     UserEntity selectByName(String userName);
 
     /**
-     * 选择插入
-     * @param record
-     * @return int
-     */
-    int insertSelective(UserEntity record);
-
-    /**
      * 主键查询
      * @param userId
      * @return UserEntity
@@ -61,10 +54,4 @@ public interface UserMapper {
      */
     int updateByPrimaryKeySelective(UserEntity record);
 
-    /**
-     * 主键修改
-     * @param record
-     * @return int
-     */
-    int updateByPrimaryKey(UserEntity record);
 }

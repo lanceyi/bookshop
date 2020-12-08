@@ -1,7 +1,9 @@
 package com.lance.service;
 
-import com.lance.entity.BookSort;
+import com.lance.entity.BookSortEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author lance
@@ -22,34 +24,28 @@ public interface BookSortService {
      * @param record
      * @return insert count
      */
-    int insert (BookSort record);
+    int insert (BookSortEntity record);
+
 
     /**
-     * 选择插入
-     * @param record
-     * @return insert count
+     * 查询所有
+     * @return List<UserEntity>
      */
-    int insertSelective (BookSort record);
+    List<BookSortEntity> selectAll ();
 
     /**
      * 主键查询
      * @param sortId
      * @return BookSort
      */
-    BookSort selectByPrimaryKey (Integer sortId);
+    BookSortEntity selectByPrimaryKey (Integer sortId);
 
     /**
      * 选择修改
      * @param record
      * @return update count
      */
-    int updateByPrimaryKeySelective (BookSort record);
+    int updateByPrimaryKeySelective (BookSortEntity record);
 
-    /**
-     * 主键修改
-     * @param record
-     * @return update count
-     */
-    int updateByPrimaryKey (BookSort record);
 }
 

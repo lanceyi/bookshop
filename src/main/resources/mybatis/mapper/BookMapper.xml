@@ -17,11 +17,26 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
+  <resultMap id="BooKSortResultMap" type="com.lance.dto.BookDto">
+    <result column="sort_name" property="bookSortName"/>
+    <result column="user_name" property="bookUserName"/>
+  </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     book_id, book_name, img_url, book_author, book_pub, book_price, book_original_price, 
     book_sort, book_description, book_user, create_time, update_time
   </sql>
+
+  <select id="selectAll" resultMap="BooKSortResultMap">
+    <!--@mbg.generated-->
+    select
+    b.book_id, b.book_name, b.img_url, b.book_author, b.book_pub, b.book_price, b.book_original_price,
+    s.sort_name, b.book_description, u.user_name, b.create_time, b.update_time
+    from book b
+    LEFT join user u on u.user_id=b.book_user
+    LEFT join book_sort s on s.sort_id=b.book_sort
+
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -44,80 +59,6 @@
       #{bookPub,jdbcType=VARCHAR}, #{bookPrice,jdbcType=DECIMAL}, #{bookOriginalPrice,jdbcType=DECIMAL}, 
       #{bookSort,jdbcType=INTEGER}, #{bookDescription,jdbcType=VARCHAR}, #{bookUser,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" keyColumn="book_id" keyProperty="bookId" parameterType="com.lance.entity.BookEntity" useGeneratedKeys="true">
-    <!--@mbg.generated-->
-    insert into book
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="bookName != null">
-        book_name,
-      </if>
-      <if test="imgUrl != null">
-        img_url,
-      </if>
-      <if test="bookAuthor != null">
-        book_author,
-      </if>
-      <if test="bookPub != null">
-        book_pub,
-      </if>
-      <if test="bookPrice != null">
-        book_price,
-      </if>
-      <if test="bookOriginalPrice != null">
-        book_original_price,
-      </if>
-      <if test="bookSort != null">
-        book_sort,
-      </if>
-      <if test="bookDescription != null">
-        book_description,
-      </if>
-      <if test="bookUser != null">
-        book_user,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="bookName != null">
-        #{bookName,jdbcType=VARCHAR},
-      </if>
-      <if test="imgUrl != null">
-        #{imgUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="bookAuthor != null">
-        #{bookAuthor,jdbcType=VARCHAR},
-      </if>
-      <if test="bookPub != null">
-        #{bookPub,jdbcType=VARCHAR},
-      </if>
-      <if test="bookPrice != null">
-        #{bookPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="bookOriginalPrice != null">
-        #{bookOriginalPrice,jdbcType=DECIMAL},
-      </if>
-      <if test="bookSort != null">
-        #{bookSort,jdbcType=INTEGER},
-      </if>
-      <if test="bookDescription != null">
-        #{bookDescription,jdbcType=VARCHAR},
-      </if>
-      <if test="bookUser != null">
-        #{bookUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookEntity">
     <!--@mbg.generated-->
@@ -159,20 +100,6 @@
     </set>
     where book_id = #{bookId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.lance.entity.BookEntity">
-    <!--@mbg.generated-->
-    update book
-    set book_name = #{bookName,jdbcType=VARCHAR},
-      img_url = #{imgUrl,jdbcType=VARCHAR},
-      book_author = #{bookAuthor,jdbcType=VARCHAR},
-      book_pub = #{bookPub,jdbcType=VARCHAR},
-      book_price = #{bookPrice,jdbcType=DECIMAL},
-      book_original_price = #{bookOriginalPrice,jdbcType=DECIMAL},
-      book_sort = #{bookSort,jdbcType=INTEGER},
-      book_description = #{bookDescription,jdbcType=VARCHAR},
-      book_user = #{bookUser,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
-    where book_id = #{bookId,jdbcType=INTEGER}
-  </update>
+
+
 </mapper>

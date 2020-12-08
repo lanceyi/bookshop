@@ -38,12 +38,6 @@ public interface UserService {
      */
     UserEntity selectByName(String userName);
 
-    /**
-     * 选择插入
-     * @param record
-     * @return int
-     */
-    int insertSelective(UserEntity record);
 
     /**
      * 主键查询
@@ -58,13 +52,6 @@ public interface UserService {
      * @return int
      */
     int updateByPrimaryKeySelective(UserEntity record);
-
-    /**
-     * 主键修改
-     * @param record
-     * @return int
-     */
-    int updateByPrimaryKey(UserEntity record);
 
     /**
      * 登录

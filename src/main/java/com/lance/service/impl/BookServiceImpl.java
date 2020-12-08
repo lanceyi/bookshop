@@ -1,5 +1,6 @@
 package com.lance.service.impl;
 
+import com.lance.dto.BookDto;
 import com.lance.entity.BookEntity;
 import com.lance.mapper.BookMapper;
 import com.lance.service.BookService;
@@ -7,6 +8,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author lance
@@ -29,9 +31,10 @@ public class BookServiceImpl implements BookService {
         return bookMapper.insert(record);
     }
 
+
     @Override
-    public int insertSelective (BookEntity record) {
-        return bookMapper.insertSelective(record);
+    public List<BookDto> selectAll () {
+        return bookMapper.selectAll();
     }
 
     @Override
@@ -44,8 +47,4 @@ public class BookServiceImpl implements BookService {
         return bookMapper.updateByPrimaryKeySelective(record);
     }
 
-    @Override
-    public int updateByPrimaryKey (BookEntity record) {
-        return bookMapper.updateByPrimaryKey(record);
-    }
 }

@@ -44,10 +44,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectByName(userName);
     }
 
-    @Override
-    public int insertSelective (UserEntity record) {
-        return userMapper.insertSelective(record);
-    }
 
     @Override
     public UserEntity selectByPrimaryKey (Integer userId) {
@@ -59,10 +55,6 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByPrimaryKeySelective(record);
     }
 
-    @Override
-    public int updateByPrimaryKey (UserEntity record) {
-        return userMapper.updateByPrimaryKey(record);
-    }
 
     @Override
     public Map<String, Object> login (String userName, String userPassword) {
