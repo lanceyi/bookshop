@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lance.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.lance.entity.BookEntity">
+    <!--@mbg.generated-->
+    <!--@Table book-->
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="book_author" jdbcType="VARCHAR" property="bookAuthor" />
+    <result column="book_pub" jdbcType="VARCHAR" property="bookPub" />
+    <result column="book_price" jdbcType="DECIMAL" property="bookPrice" />
+    <result column="book_original_price" jdbcType="DECIMAL" property="bookOriginalPrice" />
+    <result column="book_sort" jdbcType="INTEGER" property="bookSort" />
+    <result column="book_description" jdbcType="VARCHAR" property="bookDescription" />
+    <result column="book_user" jdbcType="INTEGER" property="bookUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    book_id, book_name, img_url, book_author, book_pub, book_price, book_original_price, 
+    book_sort, book_description, book_user, create_time, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from book
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="book_id" keyProperty="bookId" parameterType="com.lance.entity.BookEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book (book_name, img_url, book_author, 
+      book_pub, book_price, book_original_price, 
+      book_sort, book_description, book_user, 
+      create_time, update_time)
+    values (#{bookName,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{bookAuthor,jdbcType=VARCHAR}, 
+      #{bookPub,jdbcType=VARCHAR}, #{bookPrice,jdbcType=DECIMAL}, #{bookOriginalPrice,jdbcType=DECIMAL}, 
+      #{bookSort,jdbcType=INTEGER}, #{bookDescription,jdbcType=VARCHAR}, #{bookUser,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="book_id" keyProperty="bookId" parameterType="com.lance.entity.BookEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookName != null">
+        book_name,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="bookAuthor != null">
+        book_author,
+      </if>
+      <if test="bookPub != null">
+        book_pub,
+      </if>
+      <if test="bookPrice != null">
+        book_price,
+      </if>
+      <if test="bookOriginalPrice != null">
+        book_original_price,
+      </if>
+      <if test="bookSort != null">
+        book_sort,
+      </if>
+      <if test="bookDescription != null">
+        book_description,
+      </if>
+      <if test="bookUser != null">
+        book_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookName != null">
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPub != null">
+        #{bookPub,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null">
+        #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookOriginalPrice != null">
+        #{bookOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookSort != null">
+        #{bookSort,jdbcType=INTEGER},
+      </if>
+      <if test="bookDescription != null">
+        #{bookDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser != null">
+        #{bookUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookEntity">
+    <!--@mbg.generated-->
+    update book
+    <set>
+      <if test="bookName != null">
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="bookAuthor != null">
+        book_author = #{bookAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPub != null">
+        book_pub = #{bookPub,jdbcType=VARCHAR},
+      </if>
+      <if test="bookPrice != null">
+        book_price = #{bookPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookOriginalPrice != null">
+        book_original_price = #{bookOriginalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="bookSort != null">
+        book_sort = #{bookSort,jdbcType=INTEGER},
+      </if>
+      <if test="bookDescription != null">
+        book_description = #{bookDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="bookUser != null">
+        book_user = #{bookUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lance.entity.BookEntity">
+    <!--@mbg.generated-->
+    update book
+    set book_name = #{bookName,jdbcType=VARCHAR},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      book_author = #{bookAuthor,jdbcType=VARCHAR},
+      book_pub = #{bookPub,jdbcType=VARCHAR},
+      book_price = #{bookPrice,jdbcType=DECIMAL},
+      book_original_price = #{bookOriginalPrice,jdbcType=DECIMAL},
+      book_sort = #{bookSort,jdbcType=INTEGER},
+      book_description = #{bookDescription,jdbcType=VARCHAR},
+      book_user = #{bookUser,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+</mapper>

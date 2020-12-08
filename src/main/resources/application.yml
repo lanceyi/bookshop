@@ -1,0 +1,23 @@
+server:
+  port: 23333
+spring:
+  messages:
+    basename: i18n.login
+  datasource:
+    username: lance
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3306/bookshop?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=GMT%2B8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+thymeleaf:
+  cache: false
+logging:
+  config: classpath:log4j2.xml
+
+mybatis:
+  type-aliases-package: com.lance.model
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml

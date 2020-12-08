@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lance.mapper.BookSortMapper">
+  <resultMap id="BaseResultMap" type="com.lance.entity.BookSortEntity">
+    <!--@mbg.generated-->
+    <!--@Table book_sort-->
+    <id column="sort_id" jdbcType="INTEGER" property="sortId" />
+    <result column="sort_name" jdbcType="VARCHAR" property="sortName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    sort_id, sort_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from book_sort
+    where sort_id = #{sortId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from book_sort
+    where sort_id = #{sortId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSortEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book_sort (sort_name)
+    values (#{sortName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="sort_id" keyProperty="sortId" parameterType="com.lance.entity.BookSortEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book_sort
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sortName != null">
+        sort_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sortName != null">
+        #{sortName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookSortEntity">
+    <!--@mbg.generated-->
+    update book_sort
+    <set>
+      <if test="sortName != null">
+        sort_name = #{sortName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sort_id = #{sortId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lance.entity.BookSortEntity">
+    <!--@mbg.generated-->
+    update book_sort
+    set sort_name = #{sortName,jdbcType=VARCHAR}
+    where sort_id = #{sortId,jdbcType=INTEGER}
+  </update>
+</mapper>
