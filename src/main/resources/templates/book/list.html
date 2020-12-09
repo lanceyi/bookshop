@@ -77,7 +77,7 @@
                     <tr th:each="book:${books}" >
                         <td th:text="${book.getBookId()}"></td>
                         <td th:text="${book.getBookName()}"></td>
-                        <td> <img th:src="@{${book.getImgUrl()}}" alt="图片" width="40" height="40"></td>
+                        <td> <img th:src="@{${book.getImgUrl()}}" alt="图片" width="40" height="70"></td>
                         <td th:text="${book.getBookAuthor()}"></td>
                         <td th:text="${book.getBookPub()}"></td>
                         <td th:text="${book.getBookPrice()}"></td>

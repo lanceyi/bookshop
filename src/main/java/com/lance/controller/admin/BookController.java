@@ -5,7 +5,6 @@ import com.lance.entity.BookEntity;
 import com.lance.entity.BookSortEntity;
 import com.lance.service.impl.BookServiceImpl;
 import com.lance.service.impl.BookSortServiceImpl;
-import com.lance.util.ImageFileUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +29,10 @@ public class BookController {
     @Resource
     private BookSortServiceImpl bookSortService;
 
+    /**上传地址*/
+    @Value("${file.path}")
+    private  String filePath;
+
     /**
      * 图书列表
      * @param model
@@ -53,13 +56,44 @@ public class BookController {
     }
 
     /**
+     * 按文件名获取后缀名的方法
+     * @param filename 文件名
+     * @return 后缀名
+     */
+    private String getSuffix(String filename){
+        return filename.substring(filename.lastIndexOf("."));
+    }
+
+    /**
      * 添加书籍
      * @return redirect:/books
      */
     @PostMapping("/book")
     public String addBook(@RequestParam("file") MultipartFile file, BookEntity bookEntity){
-        ImageFileUtil.imageFile(file);
-        bookEntity.setImgUrl("/images/rotPhoto/"+ImageFileUtil.imageFile(file));
+        //上传缩略图图片
+        if(file!=null&&!file.getOriginalFilename().equals("")) {
+            String oldName = file.getOriginalFilename();
+            //获取上传文件原文件名
+            String suffix = getSuffix(oldName);
+            //获取原文件的后缀名
+            String newName = System.currentTimeMillis() + suffix;
+            //创建新文件名
+            String path = filePath + "rotPhoto/";
+            // 定义上传文件保存路径
+            File filepath = new File(path, newName);
+            //创建新文件
+            if (!filepath.getParentFile().exists()) {
+                filepath.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(new File(path + File.separator + newName));
+                //把上传文件file的内容写到saveFile中
+                System.out.println("缩略图图片上传成功！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            bookEntity.setImgUrl("/images/rotPhoto/"+newName);
+        }
         bookService.insert(bookEntity);
         return "redirect:/books";
     }
@@ -85,7 +119,30 @@ public class BookController {
      * @return redirect:/books
      */
     @PutMapping("/book")
-    public String updateBook(BookEntity bookEntity){
+    public String updateBook(@RequestParam("file") MultipartFile file,BookEntity bookEntity){
+        if(file!=null&&!file.getOriginalFilename().equals("")) {
+            String oldName = file.getOriginalFilename();
+            //获取上传文件原文件名
+            String suffix = getSuffix(oldName);
+            //获取原文件的后缀名
+            String newName = System.currentTimeMillis() + suffix;
+            //创建新文件名
+            String path = filePath + "rotPhoto/";
+            // 定义上传文件保存路径
+            File filepath = new File(path, newName);
+            //创建新文件
+            if (!filepath.getParentFile().exists()) {
+                filepath.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(new File(path + File.separator + newName));
+                //把上传文件file的内容写到saveFile中
+                System.out.println("缩略图图片上传成功！");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            bookEntity.setImgUrl("/images/rotPhoto/"+newName);
+        }
         bookService.updateByPrimaryKeySelective(bookEntity);
         return "redirect:/books";
     }
