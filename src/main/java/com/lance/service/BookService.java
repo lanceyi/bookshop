@@ -30,7 +30,7 @@ public interface BookService {
 
     /**
      * 查询所有
-     * @return List<UserEntity>
+     * @return List<BookDto>
      */
     List<BookDto> selectAll ();
 

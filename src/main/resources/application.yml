@@ -21,3 +21,8 @@ mybatis:
   type-aliases-package: com.lance.model
   config-location: classpath:mybatis/mybatis-config.xml
   mapper-locations: classpath:mybatis/mapper/*.xml
+
+
+file:
+  Path: D://javaEE/booksystem/src/main/resources/templates/images/
+  relative: /images/**

@@ -18,9 +18,10 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <resultMap id="BooKSortResultMap" type="com.lance.dto.BookDto">
-    <result column="sort_name" property="bookSortName"/>
-    <result column="user_name" property="bookUserName"/>
+    <result column="sort_name" property="bookSortName" javaType="VARCHAR"/>
+    <result column="user_name" property="bookUserName" javaType="VARCHAR"/>
   </resultMap>
+
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
     book_id, book_name, img_url, book_author, book_pub, book_price, book_original_price, 
@@ -35,8 +36,8 @@
     from book b
     LEFT join user u on u.user_id=b.book_user
     LEFT join book_sort s on s.sort_id=b.book_sort
-
   </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     <!--@mbg.generated-->
     select 
@@ -53,12 +54,11 @@
     <!--@mbg.generated-->
     insert into book (book_name, img_url, book_author, 
       book_pub, book_price, book_original_price, 
-      book_sort, book_description, book_user, 
-      create_time, update_time)
+      book_sort, book_description, book_user)
     values (#{bookName,jdbcType=VARCHAR}, #{imgUrl,jdbcType=VARCHAR}, #{bookAuthor,jdbcType=VARCHAR}, 
       #{bookPub,jdbcType=VARCHAR}, #{bookPrice,jdbcType=DECIMAL}, #{bookOriginalPrice,jdbcType=DECIMAL}, 
-      #{bookSort,jdbcType=INTEGER}, #{bookDescription,jdbcType=VARCHAR}, #{bookUser,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      #{bookSort,jdbcType=INTEGER}, #{bookDescription,jdbcType=VARCHAR}, #{bookUser,jdbcType=INTEGER}
+      )
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookEntity">
     <!--@mbg.generated-->
@@ -90,12 +90,6 @@
       </if>
       <if test="bookUser != null">
         book_user = #{bookUser,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
     where book_id = #{bookId,jdbcType=INTEGER}

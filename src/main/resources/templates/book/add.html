@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="">
+		<meta name="author" content="">
+
+		<title>Dashboard Template for Bootstrap</title>
+		<!-- Bootstrap core CSS -->
+		<link href="asserts/css/bootstrap.min.css" th:href="@{/webjars/bootstrap/4.0.0/css/bootstrap.css}" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="asserts/css/dashboard.css" th:href="@{/asserts/css/dashboard.css}" rel="stylesheet">
+		<style type="text/css">
+			/* Chart.js */
+			
+			@-webkit-keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			@keyframes chartjs-render-animation {
+				from {
+					opacity: 0.99
+				}
+				to {
+					opacity: 1
+				}
+			}
+			
+			.chartjs-render-monitor {
+				-webkit-animation: chartjs-render-animation 0.001s;
+				animation: chartjs-render-animation 0.001s;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--引入抽取的topbar-->
+		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+		<div th:replace="commons/bar::topbar"></div>
+
+		<div class="container-fluid">
+			<div class="row">
+				<!--引入侧边栏-->
+				<div th:replace="commons/bar::#sidebar(activeUri='books')"></div>
+
+				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+					<!--需要区分是图书修改还是添加；-->
+					<form th:action="@{/book}" method="post" enctype="multipart/form-data">
+						<!--发送put请求修改图书数据-->
+						<!--
+						1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的）
+						2、页面创建一个post表单
+						3、创建一个input项，name="_method";值就是我们指定的请求方式
+						-->
+						<input type="hidden" name="_method" value="put" th:if="${book!=null}"/>
+						<div class="form-group">
+							<label>编号</label>
+							<input name="bookId" type="text" class="form-control" readonly th:value="${book!=null}?${book.getBookId()}">
+						</div>
+						<div class="form-group">
+							<label>名称</label>
+							<input name="bookName" type="text" class="form-control"  th:value="${book!=null}?${book.getBookName()}">
+						</div>
+						<div class="form-group">
+							<label>图片</label>
+							<input type="file" name="file" accept="image/*">
+							<img th:src="${book!=null}?${book.getImgUrl()}" width="60" height="60">
+						</div>
+						<div class="form-group">
+							<label>作者</label>
+							<input name="bookAuthor" type="text" class="form-control"  th:value="${book!=null}?${book.getBookAuthor()}">
+						</div>
+						<div class="form-group">
+							<label>出版社</label>
+							<input name="bookPub" type="text" class="form-control"  th:value="${book!=null}?${book.getBookPub()}">
+						</div>
+						<div class="form-group">
+							<label>价格</label>
+							<input name="bookPrice" type="text" class="form-control"  th:value="${book!=null}?${book.getBookPrice()}">
+						</div>
+						<div class="form-group">
+							<label>原价格</label>
+							<input name="bookOriginalPrice" type="text" class="form-control"  th:value="${book!=null}?${book.getBookOriginalPrice()}">
+						</div>
+						<div class="form-group">
+							<label>书籍分类</label>
+							<!--提交的是书籍分类的id-->
+							<select class="form-control" name="bookSort">
+								<option th:selected="${book!=null}?${ bookSort.getSortId()==book.getBookSort()}" th:value="${bookSort.getSortId()}" th:each="bookSort:${bookSorts}" th:text="${bookSort.getSortName()}">1</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label>描述</label>
+							<input name="bookDescription" type="text" class="form-control"  th:value="${book!=null}?${book.getBookDescription()}">
+						</div>
+						<div class="form-group">
+							<label>发布者</label>
+							<input name="bookUser" type="text" class="form-control"  th:value="${book!=null}?${book.getBookUser()}">
+						</div>
+						<button type="submit" class="btn btn-primary" th:text="${book!=null}?'修改':'添加'">添加</button>
+					</form>
+				</main>
+			</div>
+		</div>
+
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script type="text/javascript" src="asserts/js/jquery-3.2.1.slim.min.js" th:src="@{/webjars/jquery/3.3.1/jquery.js}"></script>
+		<script type="text/javascript" src="asserts/js/popper.min.js" th:src="@{/webjars/popper.js/1.11.1/dist/popper.js}"></script>
+		<script type="text/javascript" src="asserts/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/4.0.0/js/bootstrap.js}"></script>
+
+		<!-- Icons -->
+		<script type="text/javascript" src="asserts/js/feather.min.js" th:src="@{/asserts/js/feather.min.js}"></script>
+		<script>
+			feather.replace()
+		</script>
+		<script type="text/javascript" th:src="@{/asserts/js/Chart.min.js}"></script>
+		<script>
+			//表单序列化 将表单内容转对象
+			function formData(form) {
+				var o = {}
+				$.each(form.serializeArray(), function(index) {
+					if (o[this['name']]) {
+						o[this['name']] = o[this['name']] + ',' + (this['value'] != null && typeof(this['value']) == 'string' ? this['value'].trim() : this['value'])
+					} else {
+						o[this['name']] = (this['value'] != null && typeof(this['value']) == 'string' ? this['value'].trim() : this['value'])
+					}
+				})
+				return o
+			}
+		</script>
+
+
+	</body>
+
+</html>

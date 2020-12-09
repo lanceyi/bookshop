@@ -5,12 +5,17 @@ import com.lance.entity.BookEntity;
 import com.lance.entity.BookSortEntity;
 import com.lance.service.impl.BookServiceImpl;
 import com.lance.service.impl.BookSortServiceImpl;
+import com.lance.util.ImageFileUtil;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -52,7 +57,9 @@ public class BookController {
      * @return redirect:/books
      */
     @PostMapping("/book")
-    public String addBook(BookEntity bookEntity){
+    public String addBook(@RequestParam("file") MultipartFile file, BookEntity bookEntity){
+        ImageFileUtil.imageFile(file);
+        bookEntity.setImgUrl("/images/rotPhoto/"+ImageFileUtil.imageFile(file));
         bookService.insert(bookEntity);
         return "redirect:/books";
     }

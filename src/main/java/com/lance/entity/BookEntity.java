@@ -35,7 +35,7 @@ public class BookEntity {
 
     private Timestamp updateTime;
 
-    public BookEntity (Integer bookId, String bookName, String imgUrl, String bookAuthor, String bookPub, BigDecimal bookPrice, BigDecimal bookOriginalPrice, Integer bookSort, String bookDescription, Integer bookUser, Timestamp createTime, Timestamp updateTime) {
+    public BookEntity (Integer bookId, String bookName, String imgUrl, String bookAuthor, String bookPub, BigDecimal bookPrice, BigDecimal bookOriginalPrice, String bookSort, String bookDescription, String bookUser, Timestamp createTime, Timestamp updateTime) {
         this.bookId = bookId;
         this.bookName = bookName;
         this.imgUrl = imgUrl;
@@ -43,9 +43,7 @@ public class BookEntity {
         this.bookPub = bookPub;
         this.bookPrice = bookPrice;
         this.bookOriginalPrice = bookOriginalPrice;
-        this.bookSort = bookSort;
         this.bookDescription = bookDescription;
-        this.bookUser = bookUser;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
