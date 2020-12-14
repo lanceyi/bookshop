@@ -48,4 +48,11 @@ public interface BookService {
      */
     int updateByPrimaryKeySelective(BookEntity record);
 
+    /**
+     * 模糊查询
+     * @param concat
+     * @return
+     */
+    List<BookDto> findByConcat(String concat);
+
 }

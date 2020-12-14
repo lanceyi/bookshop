@@ -14,7 +14,6 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -38,21 +37,21 @@ public class BookController {
      * @param model
      * @return book/list
      */
-    @GetMapping("/books")
+    @GetMapping("/admin/books")
     public String list(Model model){
         List<BookDto> books = bookService.selectAll();
         model.addAttribute("books",books);
-        return "book/list";
+        return "admin/book/list";
     }
     /**
      *去到添加页面
      * @return book/add
      */
-    @GetMapping("/book")
+    @GetMapping("/admin/book")
     public String toAddPage(Model model){
         List<BookSortEntity> bookSorts = bookSortService.selectAll();
         model.addAttribute("bookSorts",bookSorts);
-        return "book/add";
+        return "admin/book/add";
     }
 
     /**
@@ -68,7 +67,7 @@ public class BookController {
      * 添加书籍
      * @return redirect:/books
      */
-    @PostMapping("/book")
+    @PostMapping("/admin/book")
     public String addBook(@RequestParam("file") MultipartFile file, BookEntity bookEntity){
         //上传缩略图图片
         if(file!=null&&!file.getOriginalFilename().equals("")) {
@@ -95,7 +94,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.insert(bookEntity);
-        return "redirect:/books";
+        return "redirect:/admin/books";
     }
 
     /**
@@ -104,13 +103,13 @@ public class BookController {
      * @param model
      * @return book/add
      */
-    @GetMapping("/book/{bookId}")
+    @GetMapping("/admin/book/{bookId}")
     public String toEditPage(@PathVariable("bookId") Integer bookId, Model model){
         model.addAttribute("bookSorts",bookSortService.selectAll());
         if (!StringUtils.isEmpty(String.valueOf(bookId))) {
             model.addAttribute("book",bookService.selectByPrimaryKey(bookId));
         }
-        return "book/add";
+        return "admin/book/add";
     }
 
     /**
@@ -118,7 +117,7 @@ public class BookController {
      * @param bookEntity
      * @return redirect:/books
      */
-    @PutMapping("/book")
+    @PutMapping("/admin/book")
     public String updateBook(@RequestParam("file") MultipartFile file,BookEntity bookEntity){
         if(file!=null&&!file.getOriginalFilename().equals("")) {
             String oldName = file.getOriginalFilename();
@@ -144,7 +143,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.updateByPrimaryKeySelective(bookEntity);
-        return "redirect:/books";
+        return "redirect:/admin/books";
     }
 
     /**
@@ -152,9 +151,16 @@ public class BookController {
      * @param bookId
      * @return redirect:/books
      */
-    @DeleteMapping("/book/{bookId}")
+    @DeleteMapping("/admin/book/{bookId}")
     public String deleteBook(@PathVariable("bookId") Integer bookId){
         bookService.deleteByPrimaryKey(bookId);
-        return "redirect:/books";
+        return "redirect:/admin/books";
+    }
+
+    @PostMapping("/admin/sbook")
+    public String findByConcat(String text,Model model){
+        List<BookDto> books = bookService.findByConcat(text);
+        model.addAttribute("books",books);
+        return "admin/book/list";
     }
 }

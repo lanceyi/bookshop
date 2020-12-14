@@ -1,4 +1,4 @@
-package com.lance.controller.user;
+package com.lance.controller;
 
 import com.lance.entity.UserEntity;
 import com.lance.service.impl.UserServiceImpl;
@@ -25,7 +25,7 @@ public class UserLoginController {
     public static String ok = "ok";
     public static String admin = "admin";
 
-    @PostMapping(value = "/user/login")
+    @PostMapping(value = "/login")
     public String login (@RequestParam("username") String username,
                          @RequestParam("password") String password, Model model, HttpSession session) {
         if (!StringUtils.isEmpty(username)) {
@@ -35,9 +35,10 @@ public class UserLoginController {
                 session.setAttribute("userEntity",resultMap.get("userEntity"));
                 log.info("user login success 添加用户到 session");
                 if ((Boolean)resultMap.get(admin)){
+                    session.setAttribute("loginAdmin",admin);
                 return "redirect:/admin.html";
                 }
-                return "redirect:/qmain.html";
+                return "redirect:/main.html";
             }else {
                 session.invalidate();
                 model.addAttribute("msg",resultMap.get("error"));
@@ -48,8 +49,7 @@ public class UserLoginController {
     }
     @GetMapping("/signOut")
     public String signOut(HttpSession session){
-        session.setAttribute("loginUser",null);
-        session.setAttribute("loginUser",null);
+        session.invalidate();
         return "login";
     }
 }

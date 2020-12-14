@@ -22,31 +22,31 @@ public class UserController {
      * @param model
      * @return user/list
      */
-    @GetMapping("/users")
+    @GetMapping("/admin/users")
     public String list(Model model){
         List<UserEntity> users = userService.selectAll();
         model.addAttribute("users",users);
-        return "user/list";
+        return "admin/user/list";
     }
 
     /**
      *去到添加页面
      * @return user/add
      */
-    @GetMapping("/user")
+    @GetMapping("/admin/user")
     public String toAddPage(){
 
-        return "user/add";
+        return "admin/user/add";
     }
 
     /**
      * 添加用户
      * @return redirect:/users
      */
-    @PostMapping("/user")
+    @PostMapping("/admin/user")
     public String addUser(UserEntity userEntity){
         userService.insert(userEntity);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     /**
@@ -55,11 +55,11 @@ public class UserController {
      * @param model
      * @return user/add
      */
-    @GetMapping("/user/{userId}")
+    @GetMapping("/admin/user/{userId}")
     public String toEditPage(@PathVariable("userId") Integer userId,Model model){
         UserEntity user = userService.selectByPrimaryKey(userId);
         model.addAttribute("user",user);
-        return "user/add";
+        return "admin/user/add";
     }
 
     /**
@@ -67,10 +67,10 @@ public class UserController {
      * @param userEntity
      * @return redirect:/users
      */
-    @PutMapping("/user")
+    @PutMapping("/admin/user")
     public String updateUser(UserEntity userEntity){
         userService.updateByPrimaryKeySelective(userEntity);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     /**
@@ -78,9 +78,9 @@ public class UserController {
      * @param userId
      * @return redirect:/users
      */
-    @DeleteMapping("/user/{userId}")
+    @DeleteMapping("/admin/user/{userId}")
     public String deleteUser(@PathVariable("userId") Integer userId){
         userService.deleteByPrimaryKey(userId);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 }

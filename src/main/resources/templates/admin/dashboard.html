@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,47 +42,21 @@
 	</head>
 
 	<body>
-		<!--引入抽取的topbar-->
-		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
+		<!--引入topbar-->
 		<div th:replace="commons/bar::topbar"></div>
-
 		<div class="container-fluid">
 			<div class="row">
-				<!--引入侧边栏-->
-				<div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
-
+				<!--引入sidebar-->
+				<div th:replace="commons/bar::#sidebar(activeUri='admin.html')"></div>
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-					<!--需要区分是员工修改还是添加；-->
-					<form th:action="@{/user}" method="post">
-						<!--发送put请求修改员工数据-->
-						<!--
-						1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的）
-						2、页面创建一个post表单
-						3、创建一个input项，name="_method";值就是我们指定的请求方式
-						-->
-						<input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
-						<div class="form-group">
-							<label>用户编号</label>
-							<input name="userId" type="number" class="form-control" readonly   th:value="${user!=null}?${user.userId}">
+					<div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+						<div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+							<div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
 						</div>
-						<div class="form-group">
-							<label>用户姓名</label>
-							<input name="userName" type="text" class="form-control"  th:value="${user!=null}?${user.userName}">
+						<div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+							<div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
 						</div>
-						<div class="form-group">
-							<label>用户密码</label>
-							<input name="userPassword" type="text" class="form-control"  th:value="${user!=null}?${user.userPassword}">
-						</div>
-						<div class="form-group">
-							<label>用户电话</label>
-							<input name="userPhone" type="text" class="form-control"  th:value="${user!=null}?${user.userPhone}">
-						</div>
-						<div class="form-group">
-							<label>用户标识</label>
-							<input name="userType" type="text" class="form-control"  th:value="${user!=null}?${user.userType}">
-						</div>
-						<button type="submit" class="btn btn-primary" th:text="${user!=null}?'修改':'添加'">添加</button>
-					</form>
+					</div>
 				</main>
 			</div>
 		</div>
@@ -100,6 +73,10 @@
 		<script>
 			feather.replace()
 		</script>
+
+		<!-- Graphs -->
+		<script type="text/javascript" src="asserts/js/Chart.min.js" th:src="@{/asserts/js/Chart.min.js}"></script>
+
 
 	</body>
 

@@ -26,10 +26,9 @@ public class MyWebConfig implements WebMvcConfigurer {
     public void addViewControllers (ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("login");
         registry.addViewController("/index.html").setViewName("login");
-        registry.addViewController("/user/login").setViewName("login");
-        registry.addViewController("/qmain.html").setViewName("indexdashboard");
-        registry.addViewController("/admin.html").setViewName("dashboard");
-        registry.addViewController("login").setViewName("login");
+        registry.addViewController("/login").setViewName("login");
+        registry.addViewController("/main.html").setViewName("indexdashboard");
+        registry.addViewController("/admin.html").setViewName("admin/dashboard");
     }
 
     /**
@@ -42,6 +41,7 @@ public class MyWebConfig implements WebMvcConfigurer {
         return new MyLocaleResolver();
     }
 
+
     /**
      * 加载自定义拦截器
      *
@@ -51,9 +51,11 @@ public class MyWebConfig implements WebMvcConfigurer {
     public void addInterceptors (InterceptorRegistry registry) {
         registry.addInterceptor(
                 new LoginHandlerInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns("/index.html", "/", "/user/login", "/admin/login", "/adminlogin", "/asserts/**"
+                .excludePathPatterns("/index.html", "/", "/login", "/asserts/**"
                         , "/webjars/bootstrap/**");
+        registry.addInterceptor(new AdminLoginIntercetor()).addPathPatterns("/admin/**");
     }
+
 
     /**上传地址*/
     @Value("${file.path}")

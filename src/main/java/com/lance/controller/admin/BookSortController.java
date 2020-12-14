@@ -22,20 +22,20 @@ public class BookSortController {
      * @param model
      * @return bookSort/list
      */
-    @GetMapping("/bookSorts")
+    @GetMapping("/admin/bookSorts")
     public String list(Model model){
         List<BookSortEntity> bookSorts = bookSortService.selectAll();
         model.addAttribute("bookSorts",bookSorts);
-        return "bookSort/list";
+        return "admin/bookSort/list";
     }
 
     /**
      * 去到添加页面
      * @return bookSort/add
      */
-    @GetMapping("bookSort")
+    @GetMapping("/admin/bookSort")
     public String toAddPage(){
-        return "bookSort/add";
+        return "admin/bookSort/add";
     }
 
     /**
@@ -43,10 +43,10 @@ public class BookSortController {
      * @param bookSortEntity
      * @return "redirect:/bookSorts"
      */
-    @PostMapping("/bookSort")
+    @PostMapping("/admin/bookSort")
     public String addBookSort(BookSortEntity bookSortEntity){
         bookSortService.insert(bookSortEntity);
-        return "redirect:/bookSorts";
+        return "redirect:/admin//bookSorts";
     }
 
     /**
@@ -55,10 +55,10 @@ public class BookSortController {
      * @param model
      * @return bookSort/add
      */
-    @GetMapping("/bookSort/{bookSortId}")
+    @GetMapping("/admin/bookSort/{bookSortId}")
     public String toEditPage(@PathVariable("bookSortId") Integer bookSortId,Model model){
         model.addAttribute("bookSort",bookSortService.selectByPrimaryKey(bookSortId));
-        return "bookSort/add";
+        return "admin/bookSort/add";
     }
 
     /**
@@ -66,10 +66,10 @@ public class BookSortController {
      * @param bookSortEntity
      * @return redirect:/bookSorts
      */
-    @PutMapping("/bookSort")
+    @PutMapping("/admin/bookSort")
     public  String updateBookSort(BookSortEntity bookSortEntity){
     bookSortService.updateByPrimaryKeySelective(bookSortEntity);
-    return "redirect:/bookSorts";
+    return "redirect:/admin/bookSorts";
     }
 
     /**
@@ -77,9 +77,9 @@ public class BookSortController {
      * @param bookSortId
      * @return
      */
-    @DeleteMapping("/bookSort/{bookSortId}")
+    @DeleteMapping("/admin/bookSort/{bookSortId}")
     public String deleteBookSort(@PathVariable("bookSortId") Integer bookSortId){
         bookSortService.deleteByPrimaryKey(bookSortId);
-        return "redirect:/bookSorts";
+        return "redirect:/admin/bookSorts";
     }
 }

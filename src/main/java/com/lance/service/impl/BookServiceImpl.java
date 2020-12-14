@@ -47,4 +47,9 @@ public class BookServiceImpl implements BookService {
         return bookMapper.updateByPrimaryKeySelective(record);
     }
 
+    @Override
+    public List<BookDto> findByConcat (String concat) {
+        return bookMapper.findByConcat(concat);
+    }
+
 }
