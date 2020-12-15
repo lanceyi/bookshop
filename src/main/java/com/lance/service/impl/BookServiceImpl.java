@@ -38,6 +38,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<BookDto> selectAllByPrimaryKey (Integer userId) {
+        return bookMapper.selectAllByPrimaryKey(userId);
+    }
+
+    @Override
     public BookEntity selectByPrimaryKey (Integer bookId) {
         return bookMapper.selectByPrimaryKey(bookId);
     }

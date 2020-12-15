@@ -50,7 +50,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<!--引入侧边栏-->
-				<div th:replace="commons/bar::#sidebar(activeUri='users')"></div>
+				<div th:replace="commons/bar::#sidebar(activeUri='admin/users')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<!--需要区分是员工修改还是添加；-->
@@ -64,23 +64,23 @@
 						<input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
 						<div class="form-group">
 							<label>用户编号</label>
-							<input name="userId" type="number" class="form-control" readonly   th:value="${user!=null}?${user.userId}">
+							<input name="userId" type="number" class="form-control" readonly   th:value="${user!=null}?${user.getUserId()}">
 						</div>
 						<div class="form-group">
 							<label>用户姓名</label>
-							<input name="userName" type="text" class="form-control"  th:value="${user!=null}?${user.userName}">
+							<input name="userName" type="text" class="form-control"  th:value="${user!=null}?${user.getUserName()}">
 						</div>
 						<div class="form-group">
 							<label>用户密码</label>
-							<input name="userPassword" type="text" class="form-control"  th:value="${user!=null}?${user.userPassword}">
+							<input name="userPassword" type="text" class="form-control"  th:value="${user!=null}?${user.getUserPassword()}">
 						</div>
 						<div class="form-group">
 							<label>用户电话</label>
-							<input name="userPhone" type="text" class="form-control"  th:value="${user!=null}?${user.userPhone}">
+							<input name="userPhone" type="text" class="form-control"  th:value="${user!=null}?${user.getUserPhone}">
 						</div>
 						<div class="form-group">
 							<label>用户标识</label>
-							<input name="userType" type="text" class="form-control"  th:value="${user!=null}?${user.userType}">
+							<input name="userType" type="text" class="form-control"  th:value="${user!=null}?${user.getUserType}">
 						</div>
 						<button type="submit" class="btn btn-primary" th:text="${user!=null}?'修改':'添加'">添加</button>
 					</form>

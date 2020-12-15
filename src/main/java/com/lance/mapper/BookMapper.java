@@ -31,9 +31,15 @@ public interface BookMapper {
 
     /**
      * 查询所有
-     * @return List<UserEntity>
+     * @return  List<BookDto>
      */
     List<BookDto> selectAll ();
+
+    /**
+     * 查询所有By用户
+     * @return  List<BookDto>
+     */
+    List<BookDto> selectAllByPrimaryKey (Integer userId);
 
     /**
      * 主键查询

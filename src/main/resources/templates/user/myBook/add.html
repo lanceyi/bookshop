@@ -45,16 +45,16 @@
 	<body>
 		<!--引入抽取的topbar-->
 		<!--模板名：会使用thymeleaf的前后缀配置规则进行解析-->
-		<div th:replace="commons/bar::topbar"></div>
+		<div th:replace="commons/barIndex::topbar"></div>
 
 		<div class="container-fluid">
 			<div class="row">
 				<!--引入侧边栏-->
-				<div th:replace="commons/bar::#sidebar(activeUri='admin/books')"></div>
+				<div th:replace="commons/barIndex::#sidebar(activeUri='user/books')"></div>
 
 				<main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 					<!--需要区分是图书修改还是添加；-->
-					<form th:action="@{/admin/book}" method="post" enctype="multipart/form-data">
+					<form th:action="@{/templates/admin/book}" method="post" enctype="multipart/form-data">
 						<!--发送put请求修改图书数据-->
 						<!--
 						1、SpringMVC中配置HiddenHttpMethodFilter;（SpringBoot自动配置好的）
@@ -104,7 +104,7 @@
 						</div>
 						<div class="form-group">
 							<label>发布者</label>
-							<input name="bookUser" type="text" class="form-control"  th:value="${book!=null}?${book.getBookUser()}">
+							<input name="bookUser" type="text" class="form-control" readonly  th:value="${session.userEntity.userId}">
 						</div>
 						<button type="submit" class="btn btn-primary" th:text="${book!=null}?'修改':'添加'">添加</button>
 					</form>

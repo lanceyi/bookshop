@@ -35,6 +35,12 @@ public interface BookService {
     List<BookDto> selectAll ();
 
     /**
+     * 查询所有By用户
+     * @return  List<BookDto>
+     */
+    List<BookDto> selectAllByPrimaryKey (Integer userId);
+
+    /**
      * 主键查询
      * @param bookId
      * @return BookEntity

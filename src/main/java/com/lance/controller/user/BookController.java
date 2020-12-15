@@ -1,4 +1,4 @@
-package com.lance.controller.admin;
+package com.lance.controller.user;
 
 import com.lance.dto.BookDto;
 import com.lance.entity.BookEntity;
@@ -19,10 +19,10 @@ import java.util.List;
 /**
  * @author lance
  * @version 1.0
- * @date 2020/12/9 1:43
+ * @date 2020/12/14 17:39
  */
-@Controller("adminBook")
-@RequestMapping("/admin")
+@Controller("userBook")
+@RequestMapping("/user")
 public class BookController {
     @Resource
     private BookServiceImpl bookService;
@@ -42,8 +42,22 @@ public class BookController {
     public String list(Model model){
         List<BookDto> books = bookService.selectAll();
         model.addAttribute("books",books);
-        return "admin/book/list";
+        return "user/book/list";
     }
+
+    /**
+     * 图书列表
+     * @param model
+     * @return myBook/list
+     */
+    @GetMapping("/myBooks/{userId}")
+    public String MyBooksList(@PathVariable("userId") Integer userId,Model model){
+        List<BookDto> books = bookService.selectAllByPrimaryKey(userId);
+        model.addAttribute("books",books);
+        return "user/myBook/list";
+    }
+
+
     /**
      *去到添加页面
      * @return book/add
@@ -52,7 +66,7 @@ public class BookController {
     public String toAddPage(Model model){
         List<BookSortEntity> bookSorts = bookSortService.selectAll();
         model.addAttribute("bookSorts",bookSorts);
-        return "admin/book/add";
+        return "user/myBook/add";
     }
 
     /**
@@ -95,7 +109,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.insert(bookEntity);
-        return "redirect:/admin/books";
+        return "redirect:/user/books";
     }
 
     /**
@@ -110,9 +124,8 @@ public class BookController {
         if (!StringUtils.isEmpty(String.valueOf(bookId))) {
             model.addAttribute("book",bookService.selectByPrimaryKey(bookId));
         }
-        return "admin/book/add";
+        return "user/book/add";
     }
-
     /**
      * 修改图书
      * @param bookEntity
@@ -144,7 +157,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.updateByPrimaryKeySelective(bookEntity);
-        return "redirect:/admin/books";
+        return "redirect:/user/books";
     }
 
     /**
@@ -152,16 +165,18 @@ public class BookController {
      * @param bookId
      * @return redirect:/books
      */
-    @DeleteMapping("/book/{bookId}")
-    public String deleteBook(@PathVariable("bookId") Integer bookId){
+    @DeleteMapping("/book/{bookId}/{userId}")
+    public String deleteBook(@PathVariable("bookId") Integer bookId,@PathVariable("userId") Integer userId,Model model){
         bookService.deleteByPrimaryKey(bookId);
-        return "redirect:/admin/books";
+        List<BookDto> books = bookService.selectAllByPrimaryKey(userId);
+        model.addAttribute("books",books);
+        return "user/myBook/list";
     }
 
     @PostMapping("/sbook")
     public String findByConcat(String text,Model model){
         List<BookDto> books = bookService.findByConcat(text);
         model.addAttribute("books",books);
-        return "admin/book/list";
+        return "user/book/list";
     }
 }
