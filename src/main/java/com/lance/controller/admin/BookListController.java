@@ -96,11 +96,11 @@ public class BookListController {
     }
 
     /**
-     * 删除图书
+     * 删除我的图书
      * @param bookListId
-     * @return redirect:/books
+     * @return redirect:/admin/bookLists
      */
-    @DeleteMapping("/book/{bookListId}")
+    @DeleteMapping("/bookList/{bookListId}")
     public String deleteBook(@PathVariable("bookListId") Integer bookListId){
         bookListService.deleteByPrimaryKey(bookListId);
         return "redirect:/admin/bookLists";

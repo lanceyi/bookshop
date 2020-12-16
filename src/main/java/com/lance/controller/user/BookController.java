@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class BookController {
      * @return myBook/list
      */
     @GetMapping("/myBooks")
-    public String MyBooksList(@RequestParam(value = "userId",required=false) Integer userId,Model model){
+    public String MyBooksList(@RequestParam(value = "userId",required=false) Integer userId, Model model){
         List<BookDto> books = bookService.selectAllByPrimaryKey(userId);
         model.addAttribute("books",books);
         return "user/myBook/list";
@@ -109,7 +110,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.insert(bookEntity);
-        return "redirect:/user/myBooks";
+        return "redirect:/user/books";
     }
 
     /**
@@ -157,7 +158,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.updateByPrimaryKeySelective(bookEntity);
-        return "redirect:/user/myBooks";
+        return "redirect:/user/books";
     }
 
     /**

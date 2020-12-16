@@ -43,7 +43,7 @@ public class BookListController {
     public String BorrowBook(@RequestParam( value = "bookId",required=false)int bookId,@RequestParam( value = "imgUrl",required=false)String imgUrl, HttpSession session){
         UserEntity userEntity = (UserEntity)session.getAttribute("userEntity");
         bookListService.insert(new BookListEntity(userEntity.getUserId(),bookId,imgUrl));
-        return "user/myBookList/list";
+        return "redirect:/user/books";
     }
 
 }

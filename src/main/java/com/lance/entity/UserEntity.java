@@ -23,4 +23,12 @@ public class UserEntity {
     private Timestamp createTime;
 
     private Timestamp updateTime;
+
+    public UserEntity (Integer userId, String userName, String userPassword, String userPhone, String userType) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPassword = userPassword;
+        this.userPhone = userPhone;
+        this.userType = userType;
+    }
 }

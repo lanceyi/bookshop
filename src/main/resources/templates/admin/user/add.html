@@ -64,23 +64,23 @@
 						<input type="hidden" name="_method" value="put" th:if="${user!=null}"/>
 						<div class="form-group">
 							<label>用户编号</label>
-							<input name="userId" type="number" class="form-control" readonly   th:value="${user!=null}?${user.getUserId()}">
+							<input name="userId" type="number" class="form-control" readonly   th:value="${user!=null}?${user.userId}">
 						</div>
 						<div class="form-group">
 							<label>用户姓名</label>
-							<input name="userName" type="text" class="form-control"  th:value="${user!=null}?${user.getUserName()}">
+							<input name="userName" type="text" class="form-control"  th:value="${user!=null}?${user.userName}">
 						</div>
 						<div class="form-group">
 							<label>用户密码</label>
-							<input name="userPassword" type="text" class="form-control"  th:value="${user!=null}?${user.getUserPassword()}">
+							<input name="userPassword" type="text" class="form-control"  th:value="${user!=null}?${user.userPassword}">
 						</div>
 						<div class="form-group">
 							<label>用户电话</label>
-							<input name="userPhone" type="text" class="form-control"  th:value="${user!=null}?${user.getUserPhone}">
+							<input name="userPhone" type="text" class="form-control"  th:value="${user!=null}?${user.userPhone}">
 						</div>
 						<div class="form-group">
 							<label>用户标识</label>
-							<input name="userType" type="text" class="form-control"  th:value="${user!=null}?${user.getUserType}">
+							<input name="userType" type="text" class="form-control"  th:value="${user!=null}?${user.userType}">
 						</div>
 						<button type="submit" class="btn btn-primary" th:text="${user!=null}?'修改':'添加'">添加</button>
 					</form>

@@ -13,6 +13,7 @@ import java.util.List;
  * @author lance
  */
 @Controller
+@RequestMapping("/admin")
 public class UserController {
     @Resource
     private UserServiceImpl userService;
@@ -22,7 +23,7 @@ public class UserController {
      * @param model
      * @return user/list
      */
-    @GetMapping("/admin/users")
+    @GetMapping("/users")
     public String list(Model model){
         List<UserEntity> users = userService.selectAll();
         model.addAttribute("users",users);
@@ -33,7 +34,7 @@ public class UserController {
      *去到添加页面
      * @return user/add
      */
-    @GetMapping("/admin/user")
+    @GetMapping("/user")
     public String toAddPage(){
 
         return "admin/user/add";
@@ -43,7 +44,7 @@ public class UserController {
      * 添加用户
      * @return redirect:/users
      */
-    @PostMapping("/admin/user")
+    @PostMapping("/user")
     public String addUser(UserEntity userEntity){
         userService.insert(userEntity);
         return "redirect:/admin/users";
@@ -55,10 +56,11 @@ public class UserController {
      * @param model
      * @return user/add
      */
-    @GetMapping("/admin/user/{userId}")
+    @GetMapping("/user/{userId}")
     public String toEditPage(@PathVariable("userId") Integer userId,Model model){
         UserEntity user = userService.selectByPrimaryKey(userId);
         model.addAttribute("user",user);
+        System.out.println(user);
         return "admin/user/add";
     }
 
@@ -67,7 +69,7 @@ public class UserController {
      * @param userEntity
      * @return redirect:/users
      */
-    @PutMapping("/admin/user")
+    @PutMapping("/user")
     public String updateUser(UserEntity userEntity){
         userService.updateByPrimaryKeySelective(userEntity);
         return "redirect:/admin/users";
@@ -78,7 +80,7 @@ public class UserController {
      * @param userId
      * @return redirect:/users
      */
-    @DeleteMapping("/admin/user/{userId}")
+    @DeleteMapping("/user/{userId}")
     public String deleteUser(@PathVariable("userId") Integer userId){
         userService.deleteByPrimaryKey(userId);
         return "redirect:/admin/users";
