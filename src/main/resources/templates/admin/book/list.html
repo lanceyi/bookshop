@@ -81,14 +81,17 @@
                     <tr th:each="book:${books}" >
                         <td th:text="${book.getBookId()}"></td>
                         <td th:text="${book.getBookName()}"></td>
-                        <td> <a data-toggle="modal" th:attr="data-target='#'+${book.getImgUrl()}" ><img th:src="@{${book.getImgUrl()}}" alt="图片" width="40" height="70"></a>
+                        <td>
+                            <a data-toggle="modal" th:attr="data-target='#'+${book.getImgUrl()}" >
+                                <img th:src="@{${book.getImgUrl()}}" alt="图片" width="40" height="70"></a>
                             <div class="modal fade" th:id="${book.getImgUrl()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <img th:src="@{${book.getImgUrl()}}">
                                     </div>
                                 </div>
-                            </div></td>
+                            </div>
+                        </td>
                         <td th:text="${book.getBookAuthor()}"></td>
                         <td th:text="${book.getBookPub()}"></td>
                         <td th:text="${book.getBookPrice()}"></td>

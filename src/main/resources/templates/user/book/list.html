@@ -58,7 +58,7 @@
                 <button type="submit" class="btn btn-primary">搜索</button>
             </form>
             <div class="table-responsive">
-                <table class="table table-striped table-sm">
+                <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>编号</th>
@@ -96,7 +96,7 @@
                         <td th:text="${book.getBookUserName()}"></td>
                         <td th:text="${#dates.format(book.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
                         <td>
-                            <button th:attr="del_uri=@{/user/book/}+${book.getBookId()}" class="btn btn-sm btn-danger deleteBtn">
+                            <button th:attr="del_uri=@{/user/bookList(bookId=(${book.getBookId()}),imgUrl=(${book.getImgUrl()}))}" class="btn btn-sm btn-danger deleteBtn">
                                 购买书
                             </button>
                         </td>

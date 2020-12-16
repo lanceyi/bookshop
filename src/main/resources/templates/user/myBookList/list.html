@@ -50,57 +50,46 @@
 <div class="container-fluid">
     <div class="row">
         <!--引入侧边栏-->
-        <div th:replace="commons/barIndex::#sidebar(activeUri='user/myBook/')"></div>
+        <div th:replace="commons/barIndex::#sidebar(activeUri='user/myBookLists')"></div>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
-            <form th:action="@{/user/sbook}" method="post">
+            <form th:action="@{/user/sbookList}" method="post">
                 <input name="text" type="text" class="form-signin">
                 <button type="submit" class="btn btn-primary">搜索</button>
             </form>
-            <h2><a class="btn btn-sm btn-success" href="book" th:href="@{/user/book}">书籍添加</a></h2>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                     <tr>
                         <th>编号</th>
-                        <th>名称</th>
+                        <th>购买人</th>
+                        <th>购买书籍</th>
                         <th>图片</th>
-                        <th>作者</th>
-                        <th>出版社</th>
-                        <th>价格</th>
-                        <th>原价格</th>
-                        <th>分类</th>
-                        <th>描述</th>
-                        <th>发布者</th>
                         <th>创建时间</th>
-                        <th>操作</th>
+                        <!--<th>操作</th>-->
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="book:${books}" >
-                        <td th:text="${book.getBookId()}"></td>
-                        <td th:text="${book.getBookName()}"></td>
-                        <td> <a data-toggle="modal" th:attr="data-target='#'+${book.getImgUrl()}" ><img th:src="@{${book.getImgUrl()}}" alt="图片" width="40" height="70"></a>
-                            <div class="modal fade" th:id="${book.getImgUrl()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <tr th:each="bookList:${bookLists}" >
+                        <td th:text="${bookList.getListId()}"></td>
+                        <td th:text="${bookList.getBookUserName()}"></td>
+                        <td th:text="${bookList.getBookName()}"></td>
+                        <td>
+                            <a data-toggle="modal" th:attr="data-target='#'+${bookList.getImgUrl()}" >
+                                <img th:src="@{${bookList.getImgUrl()}}" alt="图片" width="40" height="70"></a>
+                            <div class="modal fade" th:id="${bookList.getImgUrl()}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-                                        <img th:src="@{${book.getImgUrl()}}">
+                                        <img th:src="@{${bookList.getImgUrl()}}">
                                     </div>
                                 </div>
-                            </div></td>
-                        <td th:text="${book.getBookAuthor()}"></td>
-                        <td th:text="${book.getBookPub()}"></td>
-                        <td th:text="${book.getBookPrice()}"></td>
-                        <td th:text="${book.getBookOriginalPrice()}"></td>
-                        <td th:text="${book.getBookSortName()}"></td>
-                        <td th:text="${book.getBookDescription()}"></td>
-                        <td th:text="${book.getBookUserName()}"></td>
-                        <td th:text="${#dates.format(book.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
-                        <td>
-                            <a class=" btn btn-sm btn-primary" th:href="@{/user/book/}+${book.getBookId()}">编辑</a>
-                            <button th:attr="del_uri=@{/user/book(bookId=(${book.getBookId()}))}" class="btn btn-sm btn-danger deleteBtn">
-                                删除
-                            </button>
+                            </div>
+                        </td>
+                        <td th:text="${#dates.format(bookList.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td>
+                        <!--<button th:attr="del_uri=@{/user/bookList/}+${bookList.getListId()}" class="btn btn-sm btn-danger deleteBtn">
+                            删除
+                        </button>-->
                         </td>
                     </tr>
                     </tbody>
@@ -130,6 +119,7 @@
 </script>
 <script>
     $(".deleteBtn").click(function () {
+        //删除当前员工的
         $("#deleteEmpForm").attr("action", $(this).attr("del_uri")).submit();
         return false;
     });

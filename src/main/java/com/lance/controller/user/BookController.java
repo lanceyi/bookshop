@@ -50,8 +50,8 @@ public class BookController {
      * @param model
      * @return myBook/list
      */
-    @GetMapping("/myBooks/{userId}")
-    public String MyBooksList(@PathVariable("userId") Integer userId,Model model){
+    @GetMapping("/myBooks")
+    public String MyBooksList(@RequestParam(value = "userId",required=false) Integer userId,Model model){
         List<BookDto> books = bookService.selectAllByPrimaryKey(userId);
         model.addAttribute("books",books);
         return "user/myBook/list";
@@ -109,7 +109,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.insert(bookEntity);
-        return "redirect:/user/books";
+        return "redirect:/user/myBooks";
     }
 
     /**
@@ -124,7 +124,7 @@ public class BookController {
         if (!StringUtils.isEmpty(String.valueOf(bookId))) {
             model.addAttribute("book",bookService.selectByPrimaryKey(bookId));
         }
-        return "user/book/add";
+        return "user/myBook/add";
     }
     /**
      * 修改图书
@@ -157,7 +157,7 @@ public class BookController {
             bookEntity.setImgUrl("/images/rotPhoto/"+newName);
         }
         bookService.updateByPrimaryKeySelective(bookEntity);
-        return "redirect:/user/books";
+        return "redirect:/user/myBooks";
     }
 
     /**
@@ -165,12 +165,10 @@ public class BookController {
      * @param bookId
      * @return redirect:/books
      */
-    @DeleteMapping("/book/{bookId}/{userId}")
-    public String deleteBook(@PathVariable("bookId") Integer bookId,@PathVariable("userId") Integer userId,Model model){
+    @DeleteMapping("/book")
+    public String deleteBook(@RequestParam(value = "bookId",required = false) Integer bookId,Model model){
         bookService.deleteByPrimaryKey(bookId);
-        List<BookDto> books = bookService.selectAllByPrimaryKey(userId);
-        model.addAttribute("books",books);
-        return "user/myBook/list";
+        return "redirect:/user/myBooks";
     }
 
     @PostMapping("/sbook")

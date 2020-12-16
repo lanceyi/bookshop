@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lance.mapper.BookListMapper">
+  <resultMap id="BaseResultMap" type="com.lance.entity.BookListEntity">
+    <!--@mbg.generated-->
+    <!--@Table book_list-->
+    <id column="list_id" jdbcType="INTEGER" property="listId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+
+  <resultMap id="BooKSortResultMap" type="com.lance.dto.BookListDto">
+    <result column="book_name" property="bookName" javaType="VARCHAR"/>
+    <result column="user_name" property="bookUserName" javaType="VARCHAR"/>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    list_id, user_id, book_id, img_url, create_time, update_time
+  </sql>
+
+  <select id="selectAll" resultMap="BooKSortResultMap">
+    select
+    l.list_id, u.user_name, b.book_name, l.img_url, l.create_time, l.update_time
+    from book_list l
+    left join user u on u.user_id = l.user_id
+    left join book b on b.book_id = l.book_id
+  </select>
+
+  <select id="selectAllByPrimaryKey" resultMap="BooKSortResultMap">
+    select
+    l.list_id, u.user_name, b.book_name, l.img_url, l.create_time, l.update_time
+    from book_list l
+    left join user u on u.user_id = l.user_id
+    left join book b on b.book_id = l.book_id
+    where u.user_id = #{userId,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from book_list
+    where list_id = #{listId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from book_list
+    where list_id = #{listId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="list_id" keyProperty="listId" parameterType="com.lance.entity.BookListEntity" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into book_list (user_id, book_id, img_url)
+    values (#{userId,jdbcType=INTEGER}, #{bookId,jdbcType=INTEGER}, #{imgUrl,jdbcType=LONGVARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lance.entity.BookListEntity">
+    <!--@mbg.generated-->
+    update book_list
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="bookId != null">
+        book_id = #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where list_id = #{listId,jdbcType=INTEGER}
+  </update>
+
+
+</mapper>
