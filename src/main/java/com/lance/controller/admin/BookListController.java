@@ -1,16 +1,13 @@
 package com.lance.controller.admin;
 
 import com.lance.dto.BookListDto;
-import com.lance.entity.BookEntity;
 import com.lance.entity.BookListEntity;
-import com.lance.entity.BookSortEntity;
 import com.lance.service.impl.BookListServiceImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -96,7 +93,7 @@ public class BookListController {
     }
 
     /**
-     * 删除我的图书
+     * 删除购买的图书
      * @param bookListId
      * @return redirect:/admin/bookLists
      */
